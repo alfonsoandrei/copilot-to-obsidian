@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CliService } from './convert-cli.service';
+import { CliService } from './cli.service';
 
 describe('CliService', () => {
   let service: CliService;
