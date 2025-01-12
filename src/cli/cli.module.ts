@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { CliService } from './convert-cli.service';
 
-@Module({})
-export class CliModule {}
+@Module({
+  providers: [CliService]
+})
+export class CliModule { }
