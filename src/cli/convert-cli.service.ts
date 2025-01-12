@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Command } from 'commander';
 import * as fs from 'fs-extra';
+import * as path from 'path';
 
 @Injectable()
 export class CliService {
@@ -25,6 +26,7 @@ export class CliService {
   async convert(options: { input: string; output: string; title: string }) {
     try {
       const inputData = await fs.readFile(options.input, 'utf-8');
+
       const chatData = JSON.parse(inputData);
 
       const markdownContent = chatData.requests
@@ -33,13 +35,18 @@ export class CliService {
           const bestAnswer =
             request.response.find((resp: any) => resp.value)?.value ||
             'No answer found';
-          return `## Question\n\n${question}\n\n## Best Answer\n\n${bestAnswer}\n`;
+          return `## Question\n\n${question}\n\n## Answer\n\n${bestAnswer}\n`;
         })
         .join('\n');
 
       const finalContent = `# ${options.title}\n\n${markdownContent}`;
 
-      await fs.writeFile(options.output, finalContent);
+      const outputFilePath =
+        path.extname(options.output) === '.md'
+          ? options.output
+          : `${options.output}.md`;
+
+      await fs.writeFile(outputFilePath, finalContent);
 
       console.log('Conversion success.');
     } catch (error) {
