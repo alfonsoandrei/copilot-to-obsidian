@@ -1,13 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Command } from 'commander';
-import { JSON_CONVERSION_SERVICE } from 'src/converters/conversion.constants';
-import { JsonConversionService } from 'src/converters/json/json-conversion.service';
+import { JSON_CONVERSION_SERVICE } from '../converters/conversion.constants';
+import { JsonConversionService } from '../converters/json/json-conversion.service';
 
 @Injectable()
 export class CliService {
   private readonly command: Command;
 
-  constructor(@Inject(JSON_CONVERSION_SERVICE) private readonly jsonConversionService: JsonConversionService) {
+  constructor(
+    @Inject(JSON_CONVERSION_SERVICE)
+    private readonly jsonConversionService: JsonConversionService,
+  ) {
     this.command = new Command();
 
     this.command
@@ -20,7 +23,9 @@ export class CliService {
       .requiredOption('-i, --input <input>', 'Input file path')
       .requiredOption('-o, --output <output>', 'Output file path')
       .requiredOption('-t, --title <title>', 'Title for the markdown file')
-      .action(this.jsonConversionService.convert.bind(this.jsonConversionService));
+      .action(
+        this.jsonConversionService.convert.bind(this.jsonConversionService),
+      );
   }
 
   run() {
