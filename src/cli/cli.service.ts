@@ -5,6 +5,9 @@ import { ConversionService } from 'src/converters/conversion.interface';
 
 @Injectable()
 export class CliService {
+  // TODO: add unit tests
+  // TODO: add documentation
+  // TODO: change to di
   private readonly command: Command;
 
   constructor(

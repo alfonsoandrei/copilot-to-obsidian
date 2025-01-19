@@ -6,11 +6,12 @@ import { JsonConversionService } from 'src/converters/json/json-conversion.servi
 
 @Module({
   imports: [ConversionsModule],
-  providers: [CliService,
+  providers: [
+    CliService,
     {
       provide: JSON_CONVERSION_SERVICE,
       useClass: JsonConversionService,
     },
   ],
 })
-export class CliModule { }
+export class CliModule {}
