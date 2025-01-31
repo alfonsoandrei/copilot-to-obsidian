@@ -7,12 +7,11 @@ import { ConversionService } from 'src/converters/conversion.interface';
 export class CliService {
   // TODO: add unit tests
   // TODO: add documentation
-  // TODO: change to di
-  private readonly command: Command;
 
   constructor(
     @Inject(JSON_CONVERSION_SERVICE)
     private readonly conversionService: ConversionService,
+    private readonly command: Command,
   ) {
     this.command = new Command();
 
